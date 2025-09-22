@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>阿德哥与阿庆的老娘舅小天地</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__backdrop" role="presentation"></div>
+      <div class="hero__content">
+        <h1>老娘舅里的故事角落</h1>
+        <p>
+          网上找来的老娘舅图景，搭配阿德哥与阿庆两位好友，点击头像就能听见他们符合性格的小剧场。
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="character-section" aria-label="人物互动">
+        <h2>点点头像，听听他们的声音</h2>
+        <div class="characters">
+          <article class="character-card" data-character="ade">
+            <img
+              src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=420&q=80"
+              alt="老娘舅餐厅里沉稳的阿德哥"
+            />
+            <div class="character-card__info">
+              <h3>阿德哥</h3>
+              <p>稳重热情的服务老将，总能想起老上海的味道。</p>
+            </div>
+          </article>
+          <article class="character-card" data-character="aqing">
+            <img
+              src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=420&q=80"
+              alt="笑容开朗的阿庆在老娘舅门口"
+            />
+            <div class="character-card__info">
+              <h3>阿庆</h3>
+              <p>灵动开朗的前厅小能手，最擅长逗客人开心。</p>
+            </div>
+          </article>
+        </div>
+        <div class="dialogue" aria-live="polite">
+          <div class="dialogue__avatar" id="dialogue-avatar" aria-hidden="true"></div>
+          <div class="dialogue__content">
+            <h3 id="dialogue-name">点一个头像试试看</h3>
+            <p id="dialogue-text">
+              阿德哥和阿庆正等着你，点击头像后就能看到他们的小心声。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery" aria-label="老娘舅的味道">
+        <h2>来自网上的老娘舅气息</h2>
+        <div class="gallery__grid">
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=600&q=80"
+              alt="老娘舅餐厅的灯光氛围"
+            />
+            <figcaption>橱窗里的红灯笼，勾起了阿德哥的乡愁。</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80"
+              alt="老娘舅菜品的热腾腾气息"
+            />
+            <figcaption>热气翻腾的浇头面，最能让阿庆兴奋起来。</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=600&q=80"
+              alt="老娘舅招牌灯箱"
+            />
+            <figcaption>夜色里亮起的招牌，为他们的故事添了背景。</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        图片素材来自互联网公开资源，仅作学习展示使用。角色故事原创，欢迎走进老娘舅继续聆听。
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
