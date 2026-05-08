@@ -15,3 +15,14 @@
 - `script.js`：处理头像点击的交互逻辑。
 
 > 页面中引用的图片均来源于互联网公开资源，仅作学习演示使用。
+
+
+## 角色素材（透明 PNG）预处理
+
+已新增素材处理脚本，可将原始剧照批量转换为统一尺寸、透明背景 PNG。
+
+```bash
+python scripts/prepare_character_assets.py --size 768
+```
+
+详细说明见 `assets/README.md`。
