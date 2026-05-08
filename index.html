@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>阿德哥与阿庆的老娘舅小天地</title>
+    <title>老娘舅人物小剧场</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,9 +16,10 @@
     <header class="hero">
       <div class="hero__backdrop" role="presentation"></div>
       <div class="hero__content">
-        <h1>老娘舅里的故事角落</h1>
+        <p class="eyebrow">上海闲话里的烟火气</p>
+        <h1>老娘舅人物小剧场</h1>
         <p>
-          网上找来的老娘舅图景，搭配阿德哥与阿庆两位好友，点击头像就能听见他们符合性格的小剧场。
+          把已经整理好的角色素材放进页面里。点一点头像，就能看到他们各自的语气和小心声。
         </p>
       </div>
     </header>
@@ -27,61 +28,107 @@
       <section class="character-section" aria-label="人物互动">
         <h2>点点头像，听听他们的声音</h2>
         <div class="characters">
-          <article class="character-card" data-character="ade">
+          <article class="character-card" data-character="mao_mengda">
             <img
-              src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=420&q=80"
-              alt="老娘舅餐厅里沉稳的阿德哥"
+              src="assets/portraits/mao_mengda/Screenshot%202026-05-07%20204353.png"
+              alt="毛猛达角色头像"
             />
             <div class="character-card__info">
-              <h3>阿德哥</h3>
-              <p>稳重热情的服务老将，总能想起老上海的味道。</p>
+              <h3>毛猛达</h3>
+              <p>嘴上不饶人，心里热乎乎，最会把家长里短说成一台戏。</p>
             </div>
           </article>
-          <article class="character-card" data-character="aqing">
+
+          <article class="character-card" data-character="chen_guoqing">
             <img
-              src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=420&q=80"
-              alt="笑容开朗的阿庆在老娘舅门口"
+              src="assets/portraits/chen_guoqing/Screenshot%202026-05-07%20204143.png"
+              alt="陈国庆角色头像"
             />
             <div class="character-card__info">
-              <h3>阿庆</h3>
-              <p>灵动开朗的前厅小能手，最擅长逗客人开心。</p>
+              <h3>陈国庆</h3>
+              <p>一句话能把场面稳住，讲理讲情都带着老上海的分寸。</p>
+            </div>
+          </article>
+
+          <article class="character-card" data-character="yao_qier">
+            <img
+              src="assets/portraits/yao_qier/Screenshot%202026-05-07%20203928.png"
+              alt="姚祺儿角色头像"
+            />
+            <div class="character-card__info">
+              <h3>姚祺儿</h3>
+              <p>灵动俏皮，话锋一转就能让屋里气氛活络起来。</p>
+            </div>
+          </article>
+
+          <article class="character-card" data-character="li_jiusong">
+            <img
+              src="assets/portraits/li_jiusong/Screenshot%202026-05-07%20204725.png"
+              alt="李九松角色头像"
+            />
+            <div class="character-card__info">
+              <h3>李九松</h3>
+              <p>认真、执拗又带点可爱，遇到事情总想掰扯个明明白白。</p>
+            </div>
+          </article>
+
+          <article class="character-card" data-character="neng_niang">
+            <img
+              src="assets/portraits/neng_niang/Screenshot%202026-05-07%20204824.png"
+              alt="嫩娘角色头像"
+            />
+            <div class="character-card__info">
+              <h3>嫩娘</h3>
+              <p>温柔里有主意，细声细气也能把话讲到人心里去。</p>
+            </div>
+          </article>
+
+          <article class="character-card" data-character="zhu_zhen">
+            <img
+              src="assets/portraits/zhu_zhen/Screenshot%202026-05-07%20204853.png"
+              alt="朱桢角色头像"
+            />
+            <div class="character-card__info">
+              <h3>朱桢</h3>
+              <p>反应快、会接话，一开口就像把镜头推进了热闹现场。</p>
             </div>
           </article>
         </div>
+
         <div class="dialogue" aria-live="polite">
           <div class="dialogue__avatar" id="dialogue-avatar" aria-hidden="true"></div>
           <div class="dialogue__content">
             <h3 id="dialogue-name">点一个头像试试看</h3>
             <p id="dialogue-text">
-              阿德哥和阿庆正等着你，点击头像后就能看到他们的小心声。
+              六位角色已经在这里等着你了。点头像后，下方会切换成对应人物的小剧场台词。
             </p>
           </div>
         </div>
       </section>
 
-      <section class="gallery" aria-label="老娘舅的味道">
-        <h2>来自网上的老娘舅气息</h2>
+      <section class="gallery" aria-label="角色素材墙">
+        <h2>角色素材墙</h2>
         <div class="gallery__grid">
           <figure>
             <img
-              src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=600&q=80"
-              alt="老娘舅餐厅的灯光氛围"
+              src="assets/portraits/mao_mengda/Screenshot%202026-05-07%20204423.png"
+              alt="毛猛达备用素材"
             />
-            <figcaption>橱窗里的红灯笼，勾起了阿德哥的乡愁。</figcaption>
+            <figcaption>毛猛达：讲到关键处，眉眼里都是劲道。</figcaption>
           </figure>
           <figure>
             <img
-              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80"
-              alt="老娘舅菜品的热腾腾气息"
+              src="assets/portraits/yao_qier/Screenshot%202026-05-07%20204540.png"
+              alt="姚祺儿备用素材"
             />
-            <figcaption>热气翻腾的浇头面，最能让阿庆兴奋起来。</figcaption>
+            <figcaption>姚祺儿：一个眼神就能把小剧场点亮。</figcaption>
           </figure>
           <figure>
             <img
-              src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=600&q=80"
-              alt="老娘舅招牌灯箱"
+              src="assets/portraits/chen_guoqing/Screenshot%202026-05-07%20204210.png"
+              alt="陈国庆备用素材"
             />
-            <figcaption>夜色里亮起的招牌，为他们的故事添了背景。</figcaption>
+            <figcaption>陈国庆：沉稳的表情，自带调解现场的气场。</figcaption>
           </figure>
         </div>
       </section>
@@ -89,7 +136,7 @@
 
     <footer>
       <p>
-        图片素材来自互联网公开资源，仅作学习展示使用。角色故事原创，欢迎走进老娘舅继续聆听。
+        图片素材来自本地整理的角色截图，仅作学习和原型展示使用。正式发布前请确认素材授权。
       </p>
     </footer>
 

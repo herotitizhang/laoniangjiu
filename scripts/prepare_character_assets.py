@@ -4,7 +4,7 @@
 用法：
   python scripts/prepare_character_assets.py --size 768
 
-默认从 assets/raw 读取图片，并输出到 assets/portraits。
+默认从 assets/raw/<人物名>/ 读取图片，并输出到 assets/portraits。
 """
 
 from __future__ import annotations
@@ -37,24 +37,27 @@ CHARACTERS: tuple[Character, ...] = (
 )
 
 
-def find_source_image(raw_dir: Path, name: str) -> Path | None:
+def find_source_images(raw_dir: Path, name: str) -> list[Path]:
+    character_dir = raw_dir / name
+    if not character_dir.exists():
+        return []
+
     candidates: list[Path] = []
-    for path in raw_dir.iterdir():
-        if path.suffix.lower() in SUPPORTED_EXTS and path.is_file() and path.stem.startswith(name):
+    for path in character_dir.iterdir():
+        if path.suffix.lower() in SUPPORTED_EXTS and path.is_file():
             candidates.append(path)
-    if not candidates:
-        return None
     candidates.sort(key=lambda p: p.name)
-    return candidates[0]
+    return candidates
 
 
 def iter_existing_sources(raw_dir: Path) -> Iterable[tuple[Character, Path]]:
     for character in CHARACTERS:
-        source = find_source_image(raw_dir, character.name)
-        if source is None:
-            print(f"[SKIP] 未找到原图：{character.name}（请放到 {raw_dir}，文件名以人物名开头）")
+        sources = find_source_images(raw_dir, character.name)
+        if not sources:
+            print(f"[SKIP] 未找到原图：{character.name}（请放到 {raw_dir / character.name}）")
             continue
-        yield character, source
+        for source in sources:
+            yield character, source
 
 
 def remove_background(image_path: Path) -> Image.Image:
@@ -114,7 +117,7 @@ def main() -> int:
 
     handled = 0
     for character, source in iter_existing_sources(raw_dir):
-        target = output_dir / f"{character.slug}.png"
+        target = output_dir / character.slug / f"{source.stem}.png"
         process_one(source, target, args.size)
         handled += 1
         print(f"[OK] {character.name}: {source.name} -> {target}")
