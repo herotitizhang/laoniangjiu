@@ -56,7 +56,6 @@ python scripts/prepare_character_assets.py --size 768
 
 > 提醒：剧照通常受版权保护。建议仅用于学习/原型演示，正式发布前请确认授权。
 
-
 ## rembg 缺失时的行为
 
 若未安装 `rembg`，脚本不会报错退出，而是自动降级为：
