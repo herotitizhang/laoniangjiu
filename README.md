@@ -26,3 +26,20 @@ python scripts/prepare_character_assets.py --size 768
 ```
 
 详细说明见 `assets/README.md`。
+
+## 视频场景自动截图
+
+如果你想从整段视频里快速找“好玩表情”，可以用下面这个脚本按场景变化自动导出截图：
+
+```bash
+pip install opencv-python numpy
+python scripts/extract_scene_frames.py --input path/to/video.mp4 --output-dir assets/scene_frames
+```
+
+常用参数：
+
+- `--threshold`：场景变化阈值（默认 `0.40`，越小越容易出图）
+- `--min-interval`：相邻截图最小间隔秒数（默认 `1.5`）
+- `--max-shots`：最多导出多少张图（默认 `0` 表示不限）
+
+输出文件名会包含序号和时间戳，方便你回到原视频精修挑选。
