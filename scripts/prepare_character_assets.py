@@ -13,9 +13,8 @@ import argparse
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
+import importlib
 
-from PIL import Image
-from rembg import remove
 
 
 SUPPORTED_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
@@ -57,19 +56,28 @@ def iter_existing_sources(raw_dir: Path) -> Iterable[tuple[Character, Path]]:
         yield character, source
 
 
-def remove_background(image_path: Path) -> Image.Image:
-    with Image.open(image_path) as src:
+def load_pillow_image_module():
+    module = importlib.import_module("PIL.Image")
+    return module
+
+
+def load_rembg_remove():
+    module = importlib.import_module("rembg")
+    return module.remove
+
+
+def remove_background(image_path: Path, remove_fn, image_module):
+    with image_module.open(image_path) as src:
         rgba = src.convert("RGBA")
-        cutout = remove(rgba)
-    if not isinstance(cutout, Image.Image):
-        # rembg 某些版本会返回 bytes
+        cutout = remove_fn(rgba)
+    if not isinstance(cutout, image_module.Image):
         from io import BytesIO
 
-        cutout = Image.open(BytesIO(cutout)).convert("RGBA")
+        cutout = image_module.open(BytesIO(cutout)).convert("RGBA")
     return cutout
 
 
-def crop_by_alpha(img: Image.Image) -> Image.Image:
+def crop_by_alpha(img):
     alpha = img.getchannel("A")
     bbox = alpha.getbbox()
     if bbox is None:
@@ -77,20 +85,24 @@ def crop_by_alpha(img: Image.Image) -> Image.Image:
     return img.crop(bbox)
 
 
-def place_on_square(img: Image.Image, size: int) -> Image.Image:
+def place_on_square(img, size: int, image_module):
     img = img.copy()
-    img.thumbnail((size, size), Image.Resampling.LANCZOS)
+    img.thumbnail((size, size), image_module.Resampling.LANCZOS)
 
-    canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    canvas = image_module.new("RGBA", (size, size), (0, 0, 0, 0))
     offset = ((size - img.width) // 2, (size - img.height) // 2)
     canvas.paste(img, offset, img)
     return canvas
 
 
-def process_one(source: Path, target: Path, size: int) -> None:
-    no_bg = remove_background(source)
+def process_one(source: Path, target: Path, size: int, remove_fn, image_module) -> None:
+    if remove_fn is None:
+        with image_module.open(source) as src:
+            no_bg = src.convert("RGBA")
+    else:
+        no_bg = remove_background(source, remove_fn, image_module)
     cropped = crop_by_alpha(no_bg)
-    squared = place_on_square(cropped, size)
+    squared = place_on_square(cropped, size, image_module)
     target.parent.mkdir(parents=True, exist_ok=True)
     squared.save(target, format="PNG")
 
@@ -100,6 +112,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--raw-dir", default="assets/raw", help="原图目录")
     parser.add_argument("--output-dir", default="assets/portraits", help="输出目录")
     parser.add_argument("--size", type=int, default=768, help="输出方图边长")
+    parser.add_argument(
+        "--disable-rembg",
+        action="store_true",
+        help="禁用 rembg 抠图，仅做统一尺寸与 PNG 转换",
+    )
     return parser.parse_args()
 
 
@@ -112,10 +129,24 @@ def main() -> int:
         print(f"原图目录不存在：{raw_dir}")
         return 1
 
+    try:
+        image_module = load_pillow_image_module()
+    except ModuleNotFoundError:
+        print("[ERROR] 未安装 Pillow，请先安装：pip install pillow")
+        return 1
+
+    remove_fn = None
+    if not args.disable_rembg:
+        try:
+            remove_fn = load_rembg_remove()
+        except ModuleNotFoundError:
+            print("[WARN] 未安装 rembg，已自动降级为仅统一尺寸与 PNG 转换。")
+            print("[TIP] 如需自动抠图，请先安装：pip install rembg onnxruntime")
+
     handled = 0
     for character, source in iter_existing_sources(raw_dir):
         target = output_dir / f"{character.slug}.png"
-        process_one(source, target, args.size)
+        process_one(source, target, args.size, remove_fn, image_module)
         handled += 1
         print(f"[OK] {character.name}: {source.name} -> {target}")
 

@@ -32,6 +32,7 @@
 
 ```bash
 pip install pillow rembg onnxruntime
+# 若只做尺寸统一可不装 rembg
 ```
 
 执行处理：
@@ -54,3 +55,16 @@ python scripts/prepare_character_assets.py --size 768
 请把每张图的来源 URL、截图时间、使用限制记录到 `assets/source_log.csv`。
 
 > 提醒：剧照通常受版权保护。建议仅用于学习/原型演示，正式发布前请确认授权。
+
+## rembg 缺失时的行为
+
+若未安装 `rembg`，脚本不会报错退出，而是自动降级为：
+
+- 保留原图内容（不抠透明背景）
+- 仍会统一尺寸并导出 PNG
+
+可显式关闭抠图：
+
+```bash
+python scripts/prepare_character_assets.py --size 768 --disable-rembg
+```
